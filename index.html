@@ -71,18 +71,18 @@
         <div id="pageView" class="view" style="display: none">
           <div class="page-header">
             <h1 id="pageTitle"></h1>
-            <div class="page-meta">
-              <span id="pageDate"></span>
-              <span id="pageCategories"></span>
-              <span id="pageContributors"></span>
-            </div>
-            <div class="page-id-badge" id="pageIdBadge"></div>
+            <div class="page-meta" id="pageDate"></div>
             <div class="page-actions">
-              <button class="edit-btn" onclick="editCurrentPage()">
-                ✏️ Edit
+              <span class="page-id-badge" id="pageIdBadge"></span>
+              <button class="edit-btn" onclick="editCurrentPage()" title="Edit">
+                ✏️
               </button>
-              <button class="delete-btn" onclick="deleteCurrentPage()">
-                🗑️ Delete
+              <button
+                class="delete-btn"
+                onclick="deleteCurrentPage()"
+                title="Delete"
+              >
+                🗑️
               </button>
             </div>
           </div>

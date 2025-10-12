@@ -356,18 +356,28 @@ async function showPage(pageId) {
             
             // Display page slug/ID
             const pageSlug = page.pageSlug || generateSlug(page.title);
-            document.getElementById('pageIdBadge').textContent = `ID: ${pageSlug}`;
+            document.getElementById('pageIdBadge').textContent = pageSlug;
             
-            // Display metadata
-            let metaHTML = '';
-            if (page.startDate) {
-                metaHTML += `<span>📅 ${formatDate(page.startDate)}${page.endDate ? ' - ' + formatDate(page.endDate) : ''}</span>`;
+            // Apply theme to page header too
+            const pageHeader = document.getElementById('pageView').querySelector('.page-header');
+            pageHeader.className = 'page-header';
+            if (page.styleTheme && page.styleTheme !== 'default') {
+                pageHeader.classList.add(`theme-${page.styleTheme}`);
             }
+            
+            // Display metadata in separate paragraphs
+            let metaHTML = '';
             if (page.categories && page.categories.length > 0) {
-                metaHTML += `<span>📁 ${page.categories.join(', ')}</span>`;
+                metaHTML += `<p><strong>Categories:</strong> ${page.categories.join(', ')}</p>`;
+            }
+            if (page.startDate) {
+                const dateText = page.endDate ? 
+                    `${formatDate(page.startDate)} - ${formatDate(page.endDate)}` : 
+                    formatDate(page.startDate);
+                metaHTML += `<p><strong>Date:</strong> ${dateText}</p>`;
             }
             if (page.contributors && page.contributors.length > 0) {
-                metaHTML += `<span>✍️ ${page.contributors.join(', ')}</span>`;
+                metaHTML += `<p><strong>Contributors:</strong> ${page.contributors.join(', ')}</p>`;
             }
             document.getElementById('pageDate').innerHTML = metaHTML;
             
@@ -580,13 +590,26 @@ window.savePage = async function(event) {
             pageData.contributors = [currentAuthor];
             pageData.createdAt = new Date().toISOString();
             
+            console.log('Attempting to save page with data:', pageData);
             const docRef = await addDoc(collection(db, 'pages'), pageData);
+            console.log('Page created with ID:', docRef.id);
             alert(`Page created successfully! Page ID: ${finalSlug}`);
             showPage(docRef.id);
         }
     } catch (error) {
         console.error("Error saving page:", error);
-        alert('Error saving page. Check console for details.');
+        console.error("Error code:", error.code);
+        console.error("Error message:", error.message);
+        console.error("Full error:", JSON.stringify(error, null, 2));
+        
+        // More specific error messages
+        if (error.code === 'permission-denied') {
+            alert('Permission denied: Please check your Firestore security rules.\n\nGo to Firebase Console > Firestore Database > Rules\nand ensure write permissions are enabled for the "pages" collection.');
+        } else if (error.code === 'invalid-argument') {
+            alert('Invalid data: One of the fields contains an invalid value. Check the browser console for details.');
+        } else {
+            alert(`Error saving page: ${error.message}\n\nCheck console for more details.`);
+        }
     }
 };
 

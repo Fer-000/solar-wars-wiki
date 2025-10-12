@@ -483,20 +483,21 @@ body {
     color: var(--primary-color);
     margin-bottom: 1rem;
     font-size: 2.5rem;
+    padding-right: 120px; /* Make room for buttons and badge */
 }
 
 .page-meta {
     display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.5rem;
     color: var(--text-secondary);
     margin-bottom: 1rem;
 }
 
-.page-meta span {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.page-meta p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
 }
 
 .page-actions {
@@ -505,29 +506,32 @@ body {
     right: 1rem;
     display: flex;
     gap: 0.5rem;
+    align-items: center;
 }
 
 .page-id-badge {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.75rem;
     background: var(--bg-darker);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 0.85rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
     color: var(--text-secondary);
     font-family: 'Courier New', monospace;
 }
 
 .edit-btn, .delete-btn {
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem;
+    width: 32px;
+    height: 32px;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     color: white;
     cursor: pointer;
     transition: all 0.3s;
     font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .edit-btn {
@@ -986,110 +990,536 @@ body {
 }
 
 /* Page Theme Styles */
-/* Red Alert Theme */
-.page-content.theme-red-alert h1,
-.page-content.theme-red-alert h2 {
-    color: #ff0040;
+/* Red Alert Theme - Military/Alert Style */
+.theme-red-alert {
+    font-family: 'Courier New', 'Consolas', monospace !important;
 }
 
-.page-content.theme-red-alert a.wiki-link {
-    color: #ff6b6b;
+.theme-red-alert.page-header {
+    background: linear-gradient(135deg, #1a0505, #2a0808) !important;
+    border: 2px solid #ff0040 !important;
+    border-radius: 2px !important;
+    box-shadow: 0 0 30px rgba(255, 0, 64, 0.3) !important;
 }
 
-.page-content.theme-red-alert code {
-    color: #ff0040;
+.theme-red-alert.page-content {
+    background: linear-gradient(135deg, #1a0505, #0f0303) !important;
+    border: 2px solid #ff0040 !important;
+    border-radius: 2px !important;
+    box-shadow: 0 0 30px rgba(255, 0, 64, 0.2) !important;
 }
 
-.page-content.theme-red-alert blockquote {
-    border-left-color: #ff0040;
+.theme-red-alert h1,
+.theme-red-alert h2,
+.theme-red-alert h3 {
+    color: #ff0040 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    text-shadow: 0 0 10px rgba(255, 0, 64, 0.5) !important;
 }
 
-/* Green Matrix Theme */
-.page-content.theme-green-matrix h1,
-.page-content.theme-green-matrix h2 {
-    color: #00ff41;
+.theme-red-alert.page-header h1 {
+    color: #ff0040 !important;
+    text-transform: uppercase !important;
+    text-shadow: 0 0 15px rgba(255, 0, 64, 0.8) !important;
 }
 
-.page-content.theme-green-matrix a.wiki-link {
-    color: #00d936;
+.theme-red-alert h4,
+.theme-red-alert h5,
+.theme-red-alert h6 {
+    color: #ff6b6b !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
 }
 
-.page-content.theme-green-matrix code {
-    color: #00ff41;
+.theme-red-alert a {
+    color: #ff6b6b !important;
 }
 
-.page-content.theme-green-matrix blockquote {
-    border-left-color: #00ff41;
+.theme-red-alert a:hover {
+    color: #ff0040 !important;
 }
 
-/* Gold Luxury Theme */
-.page-content.theme-gold-luxury h1,
-.page-content.theme-gold-luxury h2 {
-    color: #ffd700;
+.theme-red-alert a.wiki-link {
+    color: #ff6b6b !important;
+    border-bottom: 2px solid #ff0040 !important;
 }
 
-.page-content.theme-gold-luxury a.wiki-link {
-    color: #ffb347;
+.theme-red-alert a.wiki-link:hover {
+    color: #ff0040 !important;
+    background: rgba(255, 0, 64, 0.1) !important;
 }
 
-.page-content.theme-gold-luxury code {
-    color: #ffd700;
+.theme-red-alert code {
+    color: #ff0040 !important;
+    background: rgba(255, 0, 64, 0.15) !important;
+    border: 1px solid #ff0040 !important;
+    border-radius: 0 !important;
 }
 
-.page-content.theme-gold-luxury blockquote {
-    border-left-color: #ffd700;
+.theme-red-alert pre {
+    background: rgba(255, 0, 64, 0.05) !important;
+    border: 2px solid #ff0040 !important;
+    border-radius: 0 !important;
 }
 
-/* Ice Blue Theme */
-.page-content.theme-ice-blue h1,
-.page-content.theme-ice-blue h2 {
-    color: #00ffff;
+.theme-red-alert blockquote {
+    border-left: 4px solid #ff0040 !important;
+    background: rgba(255, 0, 64, 0.08) !important;
 }
 
-.page-content.theme-ice-blue a.wiki-link {
-    color: #4dd0e1;
+.theme-red-alert strong {
+    color: #ff6b6b !important;
 }
 
-.page-content.theme-ice-blue code {
-    color: #00ffff;
+.theme-red-alert th {
+    color: #ff0040 !important;
+    background: rgba(255, 0, 64, 0.15) !important;
 }
 
-.page-content.theme-ice-blue blockquote {
-    border-left-color: #00ffff;
+.theme-red-alert hr {
+    border-top: 2px solid #ff0040 !important;
 }
 
-/* Amber Warm Theme */
-.page-content.theme-amber-warm h1,
-.page-content.theme-amber-warm h2 {
-    color: #ffbf00;
+/* Green Matrix Theme - Tech/Hacker Style */
+.theme-green-matrix {
+    font-family: 'Courier New', 'Monaco', monospace !important;
 }
 
-.page-content.theme-amber-warm a.wiki-link {
-    color: #ffa500;
+.theme-green-matrix.page-header {
+    background: linear-gradient(135deg, #001a00, #002600) !important;
+    border: 1px solid #00ff41 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.3), inset 0 0 50px rgba(0, 255, 65, 0.05) !important;
 }
 
-.page-content.theme-amber-warm code {
-    color: #ffbf00;
+.theme-green-matrix.page-content {
+    background: linear-gradient(135deg, #001a00, #000f00) !important;
+    border: 1px solid #00ff41 !important;
+    border-radius: 0 !important;
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.2), inset 0 0 50px rgba(0, 255, 65, 0.05) !important;
 }
 
-.page-content.theme-amber-warm blockquote {
-    border-left-color: #ffbf00;
+.theme-green-matrix h1,
+.theme-green-matrix h2,
+.theme-green-matrix h3 {
+    color: #00ff41 !important;
+    font-weight: 400 !important;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.8) !important;
 }
 
-/* Violet Mystic Theme */
-.page-content.theme-violet-mystic h1,
-.page-content.theme-violet-mystic h2 {
-    color: #9d4edd;
+.theme-green-matrix.page-header h1 {
+    color: #00ff41 !important;
+    text-shadow: 0 0 20px rgba(0, 255, 65, 1) !important;
 }
 
-.page-content.theme-violet-mystic a.wiki-link {
-    color: #c77dff;
+.theme-green-matrix h4,
+.theme-green-matrix h5,
+.theme-green-matrix h6 {
+    color: #00d936 !important;
 }
 
-.page-content.theme-violet-mystic code {
-    color: #9d4edd;
+.theme-green-matrix a {
+    color: #00d936 !important;
 }
 
-.page-content.theme-violet-mystic blockquote {
-    border-left-color: #9d4edd;
+.theme-green-matrix a:hover {
+    color: #00ff41 !important;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.8) !important;
+}
+
+.theme-green-matrix a.wiki-link {
+    color: #00d936 !important;
+    text-decoration: none !important;
+    border-bottom: 1px dotted #00ff41 !important;
+}
+
+.theme-green-matrix a.wiki-link:hover {
+    color: #00ff41 !important;
+    background: rgba(0, 255, 65, 0.1) !important;
+}
+
+.theme-green-matrix code {
+    color: #00ff41 !important;
+    background: rgba(0, 255, 65, 0.15) !important;
+    border: 1px solid #00ff41 !important;
+    border-radius: 0 !important;
+}
+
+.theme-green-matrix pre {
+    background: rgba(0, 255, 65, 0.05) !important;
+    border: 1px solid #00ff41 !important;
+    border-radius: 0 !important;
+}
+
+.theme-green-matrix blockquote {
+    border-left: 3px solid #00ff41 !important;
+    background: rgba(0, 255, 65, 0.08) !important;
+}
+
+.theme-green-matrix strong {
+    color: #00ff41 !important;
+}
+
+.theme-green-matrix th {
+    color: #00ff41 !important;
+    background: rgba(0, 255, 65, 0.15) !important;
+}
+
+.theme-green-matrix hr {
+    border-top: 1px solid #00ff41 !important;
+}
+
+/* Gold Luxury Theme - Elegant/Royal Style */
+.theme-gold-luxury {
+    font-family: 'Georgia', 'Times New Roman', serif !important;
+}
+
+.theme-gold-luxury.page-header {
+    background: linear-gradient(135deg, #1a1200, #2a1f00) !important;
+    border: 2px solid #ffd700 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.4), inset 0 0 60px rgba(255, 215, 0, 0.05) !important;
+}
+
+.theme-gold-luxury.page-content {
+    background: linear-gradient(135deg, #1a1200, #0f0a00) !important;
+    border: 2px solid #ffd700 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.3), inset 0 0 60px rgba(255, 215, 0, 0.05) !important;
+}
+
+.theme-gold-luxury h1,
+.theme-gold-luxury h2,
+.theme-gold-luxury h3 {
+    color: #ffd700 !important;
+    font-weight: 600 !important;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6) !important;
+}
+
+.theme-gold-luxury.page-header h1 {
+    color: #ffd700 !important;
+    text-shadow: 0 0 25px rgba(255, 215, 0, 0.8) !important;
+}
+
+.theme-gold-luxury h4,
+.theme-gold-luxury h5,
+.theme-gold-luxury h6 {
+    color: #ffb347 !important;
+}
+
+.theme-gold-luxury a {
+    color: #ffb347 !important;
+}
+
+.theme-gold-luxury a:hover {
+    color: #ffd700 !important;
+}
+
+.theme-gold-luxury a.wiki-link {
+    color: #ffb347 !important;
+    border-bottom: 2px solid #ffd700 !important;
+}
+
+.theme-gold-luxury a.wiki-link:hover {
+    color: #ffd700 !important;
+    background: rgba(255, 215, 0, 0.1) !important;
+}
+
+.theme-gold-luxury code {
+    color: #ffd700 !important;
+    background: rgba(255, 215, 0, 0.15) !important;
+    border: 1px solid #ffd700 !important;
+    border-radius: 8px !important;
+}
+
+.theme-gold-luxury pre {
+    background: rgba(255, 215, 0, 0.05) !important;
+    border: 2px solid #ffd700 !important;
+    border-radius: 15px !important;
+}
+
+.theme-gold-luxury blockquote {
+    border-left: 5px solid #ffd700 !important;
+    background: rgba(255, 215, 0, 0.08) !important;
+    border-radius: 0 10px 10px 0 !important;
+}
+
+.theme-gold-luxury strong {
+    color: #ffd700 !important;
+}
+
+.theme-gold-luxury th {
+    color: #ffd700 !important;
+    background: rgba(255, 215, 0, 0.15) !important;
+}
+
+.theme-gold-luxury hr {
+    border-top: 2px solid #ffd700 !important;
+}
+
+/* Ice Blue Theme - Scientific/Clean Style */
+.theme-ice-blue {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
+}
+
+.theme-ice-blue.page-header {
+    background: linear-gradient(135deg, #001a1a, #002626) !important;
+    border: 2px solid #00ffff !important;
+    border-radius: 15px !important;
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.4), inset 0 0 50px rgba(0, 255, 255, 0.05) !important;
+}
+
+.theme-ice-blue.page-content {
+    background: linear-gradient(135deg, #001a1a, #000f0f) !important;
+    border: 2px solid #00ffff !important;
+    border-radius: 15px !important;
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.3), inset 0 0 50px rgba(0, 255, 255, 0.05) !important;
+}
+
+.theme-ice-blue h1,
+.theme-ice-blue h2,
+.theme-ice-blue h3 {
+    color: #00ffff !important;
+    font-weight: 300 !important;
+    letter-spacing: 1px !important;
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.6) !important;
+}
+
+.theme-ice-blue.page-header h1 {
+    color: #00ffff !important;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.9) !important;
+}
+
+.theme-ice-blue h4,
+.theme-ice-blue h5,
+.theme-ice-blue h6 {
+    color: #4dd0e1 !important;
+}
+
+.theme-ice-blue a {
+    color: #4dd0e1 !important;
+}
+
+.theme-ice-blue a:hover {
+    color: #00ffff !important;
+}
+
+.theme-ice-blue a.wiki-link {
+    color: #4dd0e1 !important;
+    border-bottom: 1px solid #00ffff !important;
+}
+
+.theme-ice-blue a.wiki-link:hover {
+    color: #00ffff !important;
+    background: rgba(0, 255, 255, 0.1) !important;
+}
+
+.theme-ice-blue code {
+    color: #00ffff !important;
+    background: rgba(0, 255, 255, 0.15) !important;
+    border: 1px solid #00ffff !important;
+    border-radius: 6px !important;
+}
+
+.theme-ice-blue pre {
+    background: rgba(0, 255, 255, 0.05) !important;
+    border: 2px solid #00ffff !important;
+    border-radius: 12px !important;
+}
+
+.theme-ice-blue blockquote {
+    border-left: 4px solid #00ffff !important;
+    background: rgba(0, 255, 255, 0.08) !important;
+    border-radius: 0 8px 8px 0 !important;
+}
+
+.theme-ice-blue strong {
+    color: #00ffff !important;
+}
+
+.theme-ice-blue th {
+    color: #00ffff !important;
+    background: rgba(0, 255, 255, 0.15) !important;
+}
+
+.theme-ice-blue hr {
+    border-top: 1px solid #00ffff !important;
+}
+
+/* Amber Warm Theme - Historical/Vintage Style */
+.theme-amber-warm {
+    font-family: 'Garamond', 'Georgia', serif !important;
+}
+
+.theme-amber-warm.page-header {
+    background: linear-gradient(135deg, #1a1200, #2a1c00) !important;
+    border: 3px double #ffbf00 !important;
+    border-radius: 25px !important;
+    box-shadow: 0 0 40px rgba(255, 191, 0, 0.35), inset 0 0 60px rgba(255, 191, 0, 0.05) !important;
+}
+
+.theme-amber-warm.page-content {
+    background: linear-gradient(135deg, #1a1200, #0f0a00) !important;
+    border: 3px double #ffbf00 !important;
+    border-radius: 25px !important;
+    box-shadow: 0 0 40px rgba(255, 191, 0, 0.25), inset 0 0 60px rgba(255, 191, 0, 0.05) !important;
+}
+
+.theme-amber-warm h1,
+.theme-amber-warm h2,
+.theme-amber-warm h3 {
+    color: #ffbf00 !important;
+    font-weight: 500 !important;
+    text-shadow: 0 0 12px rgba(255, 191, 0, 0.6) !important;
+}
+
+.theme-amber-warm.page-header h1 {
+    color: #ffbf00 !important;
+    text-shadow: 0 0 22px rgba(255, 191, 0, 0.8) !important;
+}
+
+.theme-amber-warm h4,
+.theme-amber-warm h5,
+.theme-amber-warm h6 {
+    color: #ffa500 !important;
+}
+
+.theme-amber-warm a {
+    color: #ffa500 !important;
+}
+
+.theme-amber-warm a:hover {
+    color: #ffbf00 !important;
+}
+
+.theme-amber-warm a.wiki-link {
+    color: #ffa500 !important;
+    border-bottom: 2px solid #ffbf00 !important;
+}
+
+.theme-amber-warm a.wiki-link:hover {
+    color: #ffbf00 !important;
+    background: rgba(255, 191, 0, 0.1) !important;
+}
+
+.theme-amber-warm code {
+    color: #ffbf00 !important;
+    background: rgba(255, 191, 0, 0.15) !important;
+    border: 1px solid #ffbf00 !important;
+    border-radius: 10px !important;
+}
+
+.theme-amber-warm pre {
+    background: rgba(255, 191, 0, 0.05) !important;
+    border: 2px solid #ffbf00 !important;
+    border-radius: 18px !important;
+}
+
+.theme-amber-warm blockquote {
+    border-left: 5px solid #ffbf00 !important;
+    background: rgba(255, 191, 0, 0.08) !important;
+    border-radius: 0 12px 12px 0 !important;
+}
+
+.theme-amber-warm strong {
+    color: #ffbf00 !important;
+}
+
+.theme-amber-warm th {
+    color: #ffbf00 !important;
+    background: rgba(255, 191, 0, 0.15) !important;
+}
+
+.theme-amber-warm hr {
+    border-top: 2px dashed #ffbf00 !important;
+}
+
+/* Violet Mystic Theme - Mystical/Mysterious Style */
+.theme-violet-mystic {
+    font-family: 'Palatino', 'Book Antiqua', serif !important;
+}
+
+.theme-violet-mystic.page-header {
+    background: linear-gradient(135deg, #120a1a, #1c0f2a) !important;
+    border: 2px solid #9d4edd !important;
+    border-radius: 30px !important;
+    box-shadow: 0 0 45px rgba(157, 76, 237, 0.4), inset 0 0 70px rgba(157, 76, 237, 0.05) !important;
+}
+
+.theme-violet-mystic.page-content {
+    background: linear-gradient(135deg, #120a1a, #0a050f) !important;
+    border: 2px solid #9d4edd !important;
+    border-radius: 30px !important;
+    box-shadow: 0 0 45px rgba(157, 76, 237, 0.3), inset 0 0 70px rgba(157, 76, 237, 0.05) !important;
+}
+
+.theme-violet-mystic h1,
+.theme-violet-mystic h2,
+.theme-violet-mystic h3 {
+    color: #9d4edd !important;
+    font-weight: 500 !important;
+    letter-spacing: 1px !important;
+    text-shadow: 0 0 15px rgba(157, 76, 237, 0.7) !important;
+}
+
+.theme-violet-mystic.page-header h1 {
+    color: #9d4edd !important;
+    text-shadow: 0 0 25px rgba(157, 76, 237, 1) !important;
+}
+
+.theme-violet-mystic h4,
+.theme-violet-mystic h5,
+.theme-violet-mystic h6 {
+    color: #c77dff !important;
+}
+
+.theme-violet-mystic a {
+    color: #c77dff !important;
+}
+
+.theme-violet-mystic a:hover {
+    color: #9d4edd !important;
+}
+
+.theme-violet-mystic a.wiki-link {
+    color: #c77dff !important;
+    border-bottom: 2px solid #9d4edd !important;
+}
+
+.theme-violet-mystic a.wiki-link:hover {
+    color: #9d4edd !important;
+    background: rgba(157, 76, 237, 0.1) !important;
+}
+
+.theme-violet-mystic code {
+    color: #9d4edd !important;
+    background: rgba(157, 76, 237, 0.15) !important;
+    border: 1px solid #9d4edd !important;
+    border-radius: 12px !important;
+}
+
+.theme-violet-mystic pre {
+    background: rgba(157, 76, 237, 0.05) !important;
+    border: 2px solid #9d4edd !important;
+    border-radius: 20px !important;
+}
+
+.theme-violet-mystic blockquote {
+    border-left: 5px solid #9d4edd !important;
+    background: rgba(157, 76, 237, 0.08) !important;
+    border-radius: 0 15px 15px 0 !important;
+}
+
+.theme-violet-mystic strong {
+    color: #c77dff !important;
+}
+
+.theme-violet-mystic th {
+    color: #9d4edd !important;
+    background: rgba(157, 76, 237, 0.15) !important;
+}
+
+.theme-violet-mystic hr {
+    border-top: 2px solid #9d4edd !important;
 }

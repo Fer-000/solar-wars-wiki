@@ -433,20 +433,20 @@ function generateSlug(title) {
 function parseWikiContent(content) {
     if (!content) return '';
     
-    // First, protect wiki links by temporarily replacing them
+    // First, protect wiki links by temporarily replacing them with a unique marker
     const wikiLinks = [];
     let protectedContent = content.replace(/\[\[([^\]]+)\]\]/g, (match, pageRef) => {
         wikiLinks.push(pageRef.trim());
-        return `__WIKILINK_${wikiLinks.length - 1}__`;
+        return `{{WIKILINK:${wikiLinks.length - 1}}}`;
     });
     
     // Parse markdown using marked.js
     let parsed = marked.parse(protectedContent);
     
     // Restore wiki links with proper HTML
-    parsed = parsed.replace(/__WIKILINK_(\d+)__/g, (match, index) => {
+    parsed = parsed.replace(/\{\{WIKILINK:(\d+)\}\}/g, (match, index) => {
         const pageRef = wikiLinks[parseInt(index)];
-        return `<a href="#" onclick="searchAndShowPageByRef('${pageRef}'); return false;" class="wiki-link">${pageRef}</a>`;
+        return `<a href="#" onclick="searchAndShowPageByRef('${pageRef.replace(/'/g, "\\'")}'); return false;" class="wiki-link">${pageRef}</a>`;
     });
     
     return parsed;

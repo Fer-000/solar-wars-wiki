@@ -97,8 +97,18 @@ function displayCategories() {
     // Build category hierarchy
     const categoryTree = buildCategoryTree();
     
-    // Display top-level categories
-    displayCategoryLevel(categoryTree, categoryList, []);
+    // Check if "SW Guide" exists and display it first (pinned)
+    const swGuideKey = Object.keys(categoryTree).find(key => 
+        key.toLowerCase() === 'sw guide' || key.toLowerCase() === 'sw-guide'
+    );
+    
+    if (swGuideKey) {
+        const swGuide = categoryTree[swGuideKey];
+        displaySingleCategory(swGuide, categoryList, [], true);
+    }
+    
+    // Display remaining top-level categories (excluding SW Guide)
+    displayCategoryLevel(categoryTree, categoryList, [], swGuideKey);
 }
 
 // Build a tree structure from flat categories
@@ -141,37 +151,42 @@ function buildCategoryTree() {
 }
 
 // Display a level of categories
-function displayCategoryLevel(categoryObj, container, parentPath) {
-    const categories = Object.values(categoryObj).sort((a, b) => 
-        a.name.localeCompare(b.name)
-    );
+function displayCategoryLevel(categoryObj, container, parentPath, excludeKey = null) {
+    const categories = Object.values(categoryObj)
+        .filter(cat => !excludeKey || cat.name !== categoryObj[excludeKey]?.name)
+        .sort((a, b) => a.name.localeCompare(b.name));
     
     categories.forEach(category => {
-        const card = document.createElement('div');
-        card.className = 'category-card';
-        
-        const hasChildren = Object.keys(category.children).length > 0;
-        const indent = parentPath.length;
-        
-        card.innerHTML = `
-            <div class="category-header">
-                ${hasChildren ? '<span class="category-icon">📁</span>' : '<span class="category-icon">📄</span>'}
-                <h3 style="margin-left: ${indent * 20}px">${category.name}</h3>
-            </div>
-            <p class="count">${category.pageCount} page${category.pageCount !== 1 ? 's' : ''}</p>
-        `;
-        
-        card.onclick = (e) => {
-            e.stopPropagation();
-            if (hasChildren) {
-                toggleCategoryExpansion(card, category);
-            } else {
-                showCategoryPages(category.fullPath);
-            }
-        };
-        
-        container.appendChild(card);
+        displaySingleCategory(category, container, parentPath, false);
     });
+}
+
+// Display a single category card
+function displaySingleCategory(category, container, parentPath, isPinned = false) {
+    const card = document.createElement('div');
+    card.className = isPinned ? 'category-card pinned-category' : 'category-card';
+    
+    const hasChildren = Object.keys(category.children).length > 0;
+    const indent = parentPath.length;
+    
+    card.innerHTML = `
+        <div class="category-header">
+            ${isPinned ? '<span class="category-icon">📌</span>' : (hasChildren ? '<span class="category-icon">📁</span>' : '<span class="category-icon">📄</span>')}
+            <h3 style="margin-left: ${indent * 20}px">${category.name}</h3>
+        </div>
+        <p class="count">${category.pageCount} page${category.pageCount !== 1 ? 's' : ''}</p>
+    `;
+    
+    card.onclick = (e) => {
+        e.stopPropagation();
+        if (hasChildren) {
+            toggleCategoryExpansion(card, category);
+        } else {
+            showCategoryPages(category.fullPath);
+        }
+    };
+    
+    container.appendChild(card);
 }
 
 // Toggle category expansion

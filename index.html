@@ -49,9 +49,10 @@
         <!-- Home View -->
         <div id="homeView" class="view">
           <div class="hero">
-            <h1>Solar Wars Wiki</h1>
+            <h1>Solar System Wiki</h1>
             <p class="hero-subtitle">
-              A comprehensive wiki for the geopolitical landscape of the Solar Wars
+              A comprehensive wiki for the geopolitical landscape of humanity's
+              solar domain
             </p>
           </div>
 
@@ -70,6 +71,7 @@
         <div id="pageView" class="view" style="display: none">
           <div class="page-header">
             <h1 id="pageTitle"></h1>
+            <p class="page-subtitle" id="pageSubtitle"></p>
             <div class="page-meta" id="pageDate"></div>
             <div class="page-actions">
               <span class="page-id-badge" id="pageIdBadge"></span>
@@ -96,6 +98,20 @@
               <div class="form-group">
                 <label>Page Title</label>
                 <input type="text" id="pageTitleInput" required />
+              </div>
+
+              <div class="form-group">
+                <label>Subtitle (optional)</label>
+                <input
+                  type="text"
+                  id="pageSubtitleInput"
+                  placeholder="Write here important information"
+                  maxlength="200"
+                />
+                <small
+                  >Maximum 200 characters. Appears under the title and in the
+                  timeline.</small
+                >
               </div>
 
               <div class="form-group">
@@ -197,4 +213,3 @@ The page ID is shown in the bottom-right corner of each page."
     <script type="module" src="app.js"></script>
   </body>
 </html>
-

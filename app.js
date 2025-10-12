@@ -369,6 +369,15 @@ async function showPage(pageId) {
             const page = pageDoc.data();
             document.getElementById('pageTitle').textContent = page.title;
             
+            // Display subtitle if it exists
+            const subtitleElement = document.getElementById('pageSubtitle');
+            if (page.subtitle && page.subtitle.trim()) {
+                subtitleElement.textContent = page.subtitle;
+                subtitleElement.style.display = 'block';
+            } else {
+                subtitleElement.style.display = 'none';
+            }
+            
             // Display page slug/ID
             const pageSlug = page.pageSlug || generateSlug(page.title);
             document.getElementById('pageIdBadge').textContent = pageSlug;
@@ -530,6 +539,7 @@ window.editCurrentPage = async function() {
         if (pageDoc.exists()) {
             const page = pageDoc.data();
             document.getElementById('pageTitleInput').value = page.title;
+            document.getElementById('pageSubtitleInput').value = page.subtitle || '';
             document.getElementById('pageCategoriesInput').value = page.categories ? page.categories.join(', ') : '';
             document.getElementById('pageStartDate').value = page.startDate || '';
             document.getElementById('pageEndDate').value = page.endDate || '';
@@ -547,6 +557,7 @@ window.savePage = async function(event) {
     event.preventDefault();
     
     const title = document.getElementById('pageTitleInput').value.trim();
+    const subtitle = document.getElementById('pageSubtitleInput').value.trim();
     const categoriesInput = document.getElementById('pageCategoriesInput').value.trim();
     const categories = categoriesInput ? categoriesInput.split(',').map(c => c.trim()) : [];
     const startDate = document.getElementById('pageStartDate').value.trim();
@@ -564,6 +575,7 @@ window.savePage = async function(event) {
     
     const pageData = {
         title,
+        subtitle,
         categories,
         startDate,
         endDate,
@@ -729,10 +741,14 @@ function displayTimeline() {
         const categoriesHTML = page.categories ? 
             page.categories.map(cat => `<span class="category-tag">${cat}</span>`).join('') : '';
         
+        const subtitleHTML = page.subtitle && page.subtitle.trim() ? 
+            `<p class="timeline-subtitle">${page.subtitle}</p>` : '';
+        
         event.innerHTML = `
             <div class="timeline-dot"></div>
             <div class="timeline-content">
                 <h3>${page.title}</h3>
+                ${subtitleHTML}
                 <p class="date">${dateDisplay}</p>
                 <div class="categories">${categoriesHTML}</div>
             </div>

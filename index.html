@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solar Wars - Wiki</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <h2>Welcome to Solar Wars Wiki</h2>
+        <p>Enter your discord handle to continue:</p>
+        <input
+          type="text"
+          id="authorNameInput"
+          placeholder="Your discord handle..."
+        />
+        <button onclick="login()">Enter</button>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <div id="mainContainer" style="display: none">
+      <!-- Topbar -->
+      <nav class="topbar">
+        <div class="topbar-left">
+          <h1 class="logo" onclick="showHome()">SOLAR WARS</h1>
+          <span class="subtitle">Wiki</span>
+        </div>
+        <div class="topbar-center">
+          <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search pages..." />
+            <button onclick="searchPages()">🔍</button>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <button class="nav-btn" onclick="showTimeline()">📅 Timeline</button>
+          <button class="nav-btn create-btn" onclick="showCreatePage()">
+            + New Page
+          </button>
+          <span class="author-badge" id="authorBadge"></span>
+        </div>
+      </nav>
+
+      <!-- Main Content Area -->
+      <div class="content-area">
+        <!-- Home View -->
+        <div id="homeView" class="view">
+          <div class="hero">
+            <h1>Solar System Wiki</h1>
+            <p class="hero-subtitle">
+              A comprehensive wiki for the geopolitical landscape of humanity's
+              solar domain
+            </p>
+          </div>
+
+          <div class="categories-grid" id="categoriesGrid">
+            <h2>Browse by Category</h2>
+            <div id="categoryList"></div>
+          </div>
+
+          <div class="recent-pages">
+            <h2>Recent Pages</h2>
+            <div id="recentPagesList"></div>
+          </div>
+        </div>
+
+        <!-- Page View -->
+        <div id="pageView" class="view" style="display: none">
+          <div class="page-header">
+            <h1 id="pageTitle"></h1>
+            <div class="page-meta">
+              <span id="pageDate"></span>
+              <span id="pageCategories"></span>
+              <span id="pageContributors"></span>
+            </div>
+            <div class="page-id-badge" id="pageIdBadge"></div>
+            <div class="page-actions">
+              <button class="edit-btn" onclick="editCurrentPage()">
+                ✏️ Edit
+              </button>
+              <button class="delete-btn" onclick="deleteCurrentPage()">
+                🗑️ Delete
+              </button>
+            </div>
+          </div>
+          <div id="pageContent" class="page-content"></div>
+        </div>
+
+        <!-- Create/Edit Page View -->
+        <div id="editorView" class="view" style="display: none">
+          <div class="editor-container">
+            <h2 id="editorTitle">Create New Page</h2>
+            <form id="pageForm" onsubmit="savePage(event)">
+              <div class="form-group">
+                <label>Page Title</label>
+                <input type="text" id="pageTitleInput" required />
+              </div>
+
+              <div class="form-group">
+                <label>Categories (comma-separated)</label>
+                <input
+                  type="text"
+                  id="pageCategoriesInput"
+                  placeholder="e.g., Factions, Mars, Military"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Timeline Date (optional)</label>
+                <input
+                  type="text"
+                  id="pageStartDate"
+                  placeholder="e.g., 2151-03-15"
+                />
+                <small>Format: YYYY-MM-DD or YYYY for year only</small>
+              </div>
+
+              <div class="form-group">
+                <label>End Date (optional, for events with duration)</label>
+                <input
+                  type="text"
+                  id="pageEndDate"
+                  placeholder="e.g., 2152-06-20"
+                />
+              </div>
+
+              <div class="form-group">
+                <label>Page Style Theme</label>
+                <select id="pageStyleTheme">
+                  <option value="default">Default (Cyan/Purple)</option>
+                  <option value="red-alert">Red Alert (Military)</option>
+                  <option value="green-matrix">Green Matrix (Tech)</option>
+                  <option value="gold-luxury">Gold Luxury (Elite)</option>
+                  <option value="ice-blue">Ice Blue (Scientific)</option>
+                  <option value="amber-warm">Amber Warm (Historical)</option>
+                  <option value="violet-mystic">Violet Mystic (Mystery)</option>
+                </select>
+                <small>Choose a visual theme for this page</small>
+              </div>
+
+              <div class="form-group">
+                <label>Content (Markdown supported)</label>
+                <textarea
+                  id="pageContentInput"
+                  rows="20"
+                  placeholder="Write your content here using Markdown. 
+
+**Bold text**
+*Italic text*
+# Heading 1
+## Heading 2
+- Bullet list
+1. Numbered list
+[Link text](url)
+
+Wiki Links:
+Use [[page-id]] to link to other pages (e.g., [[mars]] or [[mars-1]])
+The page ID is shown in the bottom-right corner of each page."
+                ></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="save-btn">💾 Save Page</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Timeline View -->
+        <div id="timelineView" class="view" style="display: none">
+          <div class="timeline-header">
+            <h1>Timeline of Events</h1>
+            <div class="timeline-controls">
+              <select id="timelineCategoryFilter" onchange="filterTimeline()">
+                <option value="">All Categories</option>
+              </select>
+            </div>
+          </div>
+          <div id="timelineContainer" class="timeline-container"></div>
+        </div>
+
+        <!-- Search Results View -->
+        <div id="searchView" class="view" style="display: none">
+          <h2>Search Results</h2>
+          <div id="searchResults"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Firebase SDK -->
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

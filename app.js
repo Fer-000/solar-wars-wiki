@@ -202,6 +202,12 @@ function toggleCategoryExpansion(card, category) {
         const childContainer = document.createElement('div');
         childContainer.className = 'category-children';
         
+        // Get pages that are directly in this category (not in subcategories)
+        const directPages = allPages.filter(page => 
+            page.categories && page.categories.includes(category.fullPath)
+        );
+        
+        // First, show subcategories
         Object.values(category.children).sort((a, b) => 
             a.name.localeCompare(b.name)
         ).forEach(child => {
@@ -229,6 +235,29 @@ function toggleCategoryExpansion(card, category) {
             
             childContainer.appendChild(childCard);
         });
+        
+        // Then, show direct pages in this category
+        if (directPages.length > 0) {
+            directPages.forEach(page => {
+                const pageCard = document.createElement('div');
+                pageCard.className = 'page-card subcategory-page';
+                
+                pageCard.innerHTML = `
+                    <div class="category-header">
+                        <span class="category-icon">📄</span>
+                        <h3>${page.title}</h3>
+                    </div>
+                    <p class="page-meta-small">${page.subtitle ? page.subtitle.substring(0, 60) + '...' : ''}</p>
+                `;
+                
+                pageCard.onclick = (e) => {
+                    e.stopPropagation();
+                    showPage(page.id);
+                };
+                
+                childContainer.appendChild(pageCard);
+            });
+        }
         
         card.insertAdjacentElement('afterend', childContainer);
         card.classList.add('expanded');
